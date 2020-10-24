@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BookStore_API.Contracts;
 using Microsoft.AspNetCore.Mvc;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -15,10 +16,18 @@ namespace BookStore_API.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        private readonly ILoggerService _logger;
+
+        public ValuesController(ILoggerService logger)
+        {
+            _logger = logger;
+        }
+       
         // GET: api/<ValuesController>
         [HttpGet]
         public IEnumerable<string> Get()
         {
+            _logger.LogInfo("Access Value Controller");
             return new string[] { "value1", "value2" };
         }
 
@@ -33,6 +42,7 @@ namespace BookStore_API.Controllers
         [HttpPost]
         public void Post([FromBody] string value)
         {
+            _logger.LogError("This is an Error");
         }
 
         // PUT api/<ValuesController>/5
